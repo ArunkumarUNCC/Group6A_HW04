@@ -18,6 +18,87 @@
             android:gravity="center"
             android:id="@+id/linearLayoutMain">
 
+            <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/audioBook"
+                android:id="@+id/textViewAudioBook"
+                android:onClick="@string/audioBookOnClick" />
+
+            <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/books"
+                android:id="@+id/textViewBooks"
+                android:onClick="@string/booksOnClick" />
+
+            <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/iOSApps"
+                android:id="@+id/textViewiOSApps"
+                android:onClick="@string/iOSAppsOnClick" />
+
+            <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/iTunesU"
+                android:id="@+id/textViewiTunesU"
+                android:onClick="@string/iTunesUOnClick" />
+
+            <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/macApps"
+                android:id="@+id/textViewMacApps"
+                android:onClick="@string/macAppsOnClick" />
+
+            <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/movies"
+                android:id="@+id/textViewMovies"
+                android:onClick="@string/moviesOnClick" />
+
+            <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/musicVideo"
+                android:id="@+id/textViewMusicVideo"
+                android:onClick="@string/musicVideoOnClick" />
+
+            <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/podcasts"
+                android:id="@+id/textViewPodcasts"
+                android:onClick="@string/podcastsOnClick" />
+
+            <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/tvShows"
+                android:id="@+id/textViewTVShows"
+                android:onClick="@string/tvShowsOnClick" />
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
