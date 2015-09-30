@@ -1,3 +1,7 @@
+/*
+Michael Vitulli
+ */
+
 package com.group6a_hw04.group6a_hw04;
 
 import android.support.v7.app.AppCompatActivity;
