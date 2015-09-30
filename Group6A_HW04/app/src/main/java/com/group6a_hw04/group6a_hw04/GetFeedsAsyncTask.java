@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -45,7 +47,19 @@ public class GetFeedsAsyncTask extends AsyncTask<String,Void,ArrayList<Feed>> {
 
             int status = connection.getResponseCode();
             if (status == HttpURLConnection.HTTP_OK) {
-                return null;
+                BufferedReader lbufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder lstringBuilder = new StringBuilder();
+
+                String line = lbufferedReader.readLine();
+
+                while (line!=null){
+                    lstringBuilder.append(line);
+                    line = lbufferedReader.readLine();
+                }
+
+
+                return JSONParser.ParseAppFeeds.parseFeeds(String.valueOf(lstringBuilder));
+
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
