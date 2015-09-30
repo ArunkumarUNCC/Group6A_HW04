@@ -1,7 +1,3 @@
-/*
-Michael Vitulli - Arunkumar
- */
-
 package com.group6a_hw04.group6a_hw04;
 
 import android.support.v7.app.ActionBar;
@@ -11,23 +7,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class iOSApps extends AppCompatActivity {
 
-    View fMainLayout;
+    View fMainLayout;//your layout where you will add the list of text
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_i_osapps);
         setMediaIcon();
 
-        fMainLayout = findViewById(R.id.linearLayoutMain);
+        fMainLayout = findViewById(R.id.linearLayoutApps);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_i_osapps, menu);
         return true;
     }
 
