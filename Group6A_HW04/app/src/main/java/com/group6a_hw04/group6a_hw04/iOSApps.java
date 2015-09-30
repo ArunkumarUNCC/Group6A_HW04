@@ -18,6 +18,19 @@ public class iOSApps extends AppCompatActivity {
         setMediaIcon();
 
         fMainLayout = findViewById(R.id.linearLayoutApps);
+
+
+        /*
+        * Add following code when adding Text views
+        * <TextView
+                style="@style/layoutSpacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textView4" />
+        *
+        * */
     }
 
     @Override
