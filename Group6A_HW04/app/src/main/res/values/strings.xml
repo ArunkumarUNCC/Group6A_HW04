@@ -4,4 +4,27 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_i_osapps">iOS Apps</string>
+    <string name="audioBook">Audio Book</string>
+    <string name="books">Books</string>
+    <string name="iOSApps">iOS Apps</string>
+    <string name="iTunesU">iTunes U</string>
+    <string name="macApps">Mac Apps</string>
+    <string name="movies">Movies</string>
+    <string name="musicVideo">Music Video</string>
+    <string name="podcasts">PodCasts</string>
+    <string name="tvShows">TV Shows</string>
+    <string name="audioBookOnClick">audioBookOnClick</string>
+    <string name="booksOnClick">booksOnClick</string>
+    <string name="iOSAppsOnClick">iOSAppsOnClick</string>
+    <string name="iTunesUOnClick">iTunesUOnClick</string>
+    <string name="macAppsOnClick">macAppsOnClick</string>
+    <string name="moviesOnClick">moviesOnClick</string>
+    <string name="musicVideoOnClick">musicVideoOnClick</string>
+    <string name="podcastsOnClick">podcastsOnClick</string>
+    <string name="tvShowsOnClick">tvShowsOnClick</string>
+    <string name="title_activity_app_details">App Details</string>
+    <string name="by">By:</string>
+    <string name="price">Price: $</string>
+    <string name="category">Category:</string>
+    <string name="appLinkInSore">App Link in Store:</string>
 </resources>
