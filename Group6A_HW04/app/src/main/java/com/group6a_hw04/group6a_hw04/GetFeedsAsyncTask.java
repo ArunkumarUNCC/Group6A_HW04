@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,11 +21,13 @@ import java.util.ArrayList;
 public class GetFeedsAsyncTask extends AsyncTask<String,Void,ArrayList<Feed>> {
     IGetFeeds factivity;
     ProgressDialog ffeedLoadProgress;
+    String fselectedMediaType;
 
     String fPROGRESSMESSAGE = "Loading Apps...";
 
-    public GetFeedsAsyncTask(IGetFeeds activity) {
+    public GetFeedsAsyncTask(IGetFeeds activity,String aselectedMediaType) {
         this.factivity = activity;
+        this.fselectedMediaType = aselectedMediaType;
     }
 
     @Override
@@ -57,6 +61,7 @@ public class GetFeedsAsyncTask extends AsyncTask<String,Void,ArrayList<Feed>> {
                     line = lbufferedReader.readLine();
                 }
 
+                JSONParser ltoParse = new JSONParser(fselectedMediaType);
 
                 return JSONParser.ParseAppFeeds.parseFeeds(String.valueOf(lstringBuilder));
 
@@ -66,6 +71,8 @@ public class GetFeedsAsyncTask extends AsyncTask<String,Void,ArrayList<Feed>> {
         } catch (ProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;

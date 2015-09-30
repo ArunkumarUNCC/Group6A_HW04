@@ -4,77 +4,77 @@ package com.group6a_hw04.group6a_hw04;
  * Created by Arunkumar's on 9/30/2015.
  */
 public class Feed {
-    String ftitle,flargeImage,fartist,fduration,fcategory,freleaseDate,fsummary,fprice,flinkToPreview;
-
-    public String getFtitle() {
-        return ftitle;
+    String title,artist,duration,category,releaseDate,summary,price,linkToPreview;
+    String[] largeImage = new String[2];
+    public String getTitle() {
+        return title;
     }
 
-    public void setFtitle(String ftitle) {
-        this.ftitle = ftitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getFlargeImage() {
-        return flargeImage;
+    public String[] getLargeImage() {
+        return largeImage;
     }
 
-    public void setFlargeImage(String flargeImage) {
-        this.flargeImage = flargeImage;
+    public void setLargeImage(String[] largeImage) {
+        this.largeImage = largeImage;
     }
 
-    public String getFartist() {
-        return fartist;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setFartist(String fartist) {
-        this.fartist = fartist;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
-    public String getFduration() {
-        return fduration;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setFduration(String fduration) {
-        this.fduration = fduration;
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
-    public String getFcategory() {
-        return fcategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setFcategory(String fcategory) {
-        this.fcategory = fcategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getFreleaseDate() {
-        return freleaseDate;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setFreleaseDate(String freleaseDate) {
-        this.freleaseDate = freleaseDate;
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
-    public String getFsummary() {
-        return fsummary;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setFsummary(String fsummary) {
-        this.fsummary = fsummary;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
-    public String getFprice() {
-        return fprice;
+    public String getPrice() {
+        return price;
     }
 
-    public void setFprice(String fprice) {
-        this.fprice = fprice;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public String getFlinkToPreview() {
-        return flinkToPreview;
+    public String getLinkToPreview() {
+        return linkToPreview;
     }
 
-    public void setFlinkToPreview(String flinkToPreview) {
-        this.flinkToPreview = flinkToPreview;
+    public void setLinkToPreview(String linkToPreview) {
+        this.linkToPreview = linkToPreview;
     }
 }

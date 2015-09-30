@@ -14,7 +14,7 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    final static String fMEDIA_LIST_ACTIVITY = "android.intent.action.IOSAPPS";
+    final static String fMEDIA_LIST_ACTIVITY = "com.group6a_hw04.group6a_hw04.intent.action.IOSAPPS";
     final static String fMEDIA_TYPE = "Media Type";
     final static String fMEDIA_URL = "Media URL";
 

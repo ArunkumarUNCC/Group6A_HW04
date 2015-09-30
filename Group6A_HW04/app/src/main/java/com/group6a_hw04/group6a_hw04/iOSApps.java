@@ -1,15 +1,21 @@
 package com.group6a_hw04.group6a_hw04;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class iOSApps extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGetFeeds{
 
     View fMainLayout;//your layout where you will add the list of text
+
+    String fselecteedMediaType,fmediaTypeUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +25,12 @@ public class iOSApps extends AppCompatActivity {
 
         fMainLayout = findViewById(R.id.linearLayoutApps);
 
+        fselecteedMediaType = getIntent().getExtras().getString(MainActivity.fMEDIA_TYPE);
+        fmediaTypeUrl = getIntent().getExtras().getString(MainActivity.fMEDIA_URL);
 
+        this.setTitle(fselecteedMediaType);
+
+        new GetFeedsAsyncTask(this,fselecteedMediaType).execute(fmediaTypeUrl);
         /*
         * Add following code when adding Text views
         * <TextView
@@ -59,5 +70,14 @@ public class iOSApps extends AppCompatActivity {
         ActionBar lActionBar = getSupportActionBar();
         lActionBar.setDisplayShowHomeEnabled(true);
         lActionBar.setIcon(R.mipmap.media_icon);
+    }
+
+    @Override
+    public void displayFeeds(ArrayList<Feed> feeds) {
+        if (feeds!=null) {
+            for(Feed title:feeds) {
+                Log.d("Parsed Title", title.getTitle());
+            }
+        }
     }
 }
