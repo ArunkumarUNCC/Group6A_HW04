@@ -3,7 +3,6 @@ package com.group6a_hw04.group6a_hw04;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONException;
 
@@ -16,53 +15,50 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by Arunkumar's on 9/30/2015.
- */
 public class GetFeedsAsyncTask extends AsyncTask<String,Void,ArrayList<Feed>> {
-    IGetFeeds factivity;
-    ProgressDialog ffeedLoadProgress;
-    String fselectedMediaType;
+    IGetFeeds fActivity;
+    ProgressDialog fFeedLoadProgress;
+    String fSelectedMediaType;
 
     String fPROGRESSMESSAGE = "Loading Apps...";
 
     public GetFeedsAsyncTask(IGetFeeds activity,String aselectedMediaType) {
-        this.factivity = activity;
-        this.fselectedMediaType = aselectedMediaType;
+        this.fActivity = activity;
+        this.fSelectedMediaType = aselectedMediaType;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
-        ffeedLoadProgress = new ProgressDialog((Context) factivity);
-        ffeedLoadProgress.setMessage(fPROGRESSMESSAGE);
-        ffeedLoadProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        ffeedLoadProgress.show();
+        fFeedLoadProgress = new ProgressDialog((Context) fActivity);
+        fFeedLoadProgress.setMessage(fPROGRESSMESSAGE);
+        fFeedLoadProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        fFeedLoadProgress.show();
     }
 
     @Override
     protected ArrayList<Feed> doInBackground(String... params) {
         try {
-            URL url = new URL(params[0]);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+            URL lUrl = new URL(params[0]);
+            HttpURLConnection lConnection = (HttpURLConnection) lUrl.openConnection();
+            lConnection.setRequestMethod("GET");
 
-            connection.connect();
+            lConnection.connect();
 
-            int status = connection.getResponseCode();
+            int status = lConnection.getResponseCode();
             if (status == HttpURLConnection.HTTP_OK) {
-                BufferedReader lbufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder lstringBuilder = new StringBuilder();
+                BufferedReader lBufferedReader = new BufferedReader(new InputStreamReader(lConnection.getInputStream()));
+                StringBuilder lStringBuilder = new StringBuilder();
 
-                String line = lbufferedReader.readLine();
+                String line = lBufferedReader.readLine();
 
                 while (line!=null){
-                    lstringBuilder.append(line);
-                    line = lbufferedReader.readLine();
+                    lStringBuilder.append(line);
+                    line = lBufferedReader.readLine();
                 }
 
-                return JSONParser.ParseAppFeeds.parseFeeds(String.valueOf(lstringBuilder),fselectedMediaType);
+                return JSONParser.ParseAppFeeds.parseFeeds(String.valueOf(lStringBuilder), fSelectedMediaType);
 
             }
         } catch (MalformedURLException e) {
@@ -78,10 +74,10 @@ public class GetFeedsAsyncTask extends AsyncTask<String,Void,ArrayList<Feed>> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Feed> feeds) {
-        super.onPostExecute(feeds);
-        ffeedLoadProgress.dismiss();
-        factivity.displayFeeds(feeds);
+    protected void onPostExecute(ArrayList<Feed> aFeeds) {
+        super.onPostExecute(aFeeds);
+        fFeedLoadProgress.dismiss();
+        fActivity.displayFeeds(aFeeds);
     }
 
     public static interface IGetFeeds{

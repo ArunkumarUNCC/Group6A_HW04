@@ -1,10 +1,8 @@
 package com.group6a_hw04.group6a_hw04;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -27,11 +24,11 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
 
     static LinearLayout fMainLayout;//your layout where you will add the list of text
 
-    String fselecteedMediaType,fmediaTypeUrl;
+    String fSelectedMediaType, fMediaTypeUrl;
 
-    String fDETAILED_MEDIA_ACTIVITY = "com.group6a_hw04.group6a_hw04.intent.action.APPDETAILS";
-    String fMEDIA_TYPE = "Media_Type";
-    String fMEDIA_FEEDS = "Media_Feeds";
+    final static String fDETAILED_MEDIA_ACTIVITY = "com.group6a_hw04.group6a_hw04.intent.action.APPDETAILS";
+    final static String fMEDIA_TYPE = "Media_Type";
+    final static String fMEDIA_FEEDS = "Media_Feeds";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +38,12 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
 
         fMainLayout = (LinearLayout) findViewById(R.id.linearLayoutApps);
 
-        fselecteedMediaType = getIntent().getExtras().getString(MainActivity.fMEDIA_TYPE);
-        fmediaTypeUrl = getIntent().getExtras().getString(MainActivity.fMEDIA_URL);
+        fSelectedMediaType = getIntent().getExtras().getString(MainActivity.fMEDIA_TYPE);
+        fMediaTypeUrl = getIntent().getExtras().getString(MainActivity.fMEDIA_URL);
 
-        this.setTitle(fselecteedMediaType);
+        this.setTitle(fSelectedMediaType);
 
-        new GetFeedsAsyncTask(this,fselecteedMediaType).execute(fmediaTypeUrl);
+        new GetFeedsAsyncTask(this, fSelectedMediaType).execute(fMediaTypeUrl);
     }
 
     @Override
@@ -78,52 +75,52 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
     }
 
     @Override
-    public void displayFeeds(ArrayList<Feed> feeds) {
-        if (feeds!=null) {
-            for(final Feed feed:feeds) {
+    public void displayFeeds(ArrayList<Feed> aFeeds) {
+        if (aFeeds !=null) {
+            for(final Feed feed: aFeeds) {
                 //Setting up master horizontal linear layout
-                LinearLayout llinearLayoutApp = new LinearLayout(iOSApps.this);
-                llinearLayoutApp.setOrientation(LinearLayout.HORIZONTAL);
-                LinearLayout.LayoutParams llinearLayoutParams = (new LinearLayout.LayoutParams(
+                LinearLayout lLinearLayoutApp = new LinearLayout(iOSApps.this);
+                lLinearLayoutApp.setOrientation(LinearLayout.HORIZONTAL);
+                LinearLayout.LayoutParams lLinearLayoutParams = (new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 ));
-                llinearLayoutParams.setMargins(10,10,10,10);
-                llinearLayoutApp.setLayoutParams(llinearLayoutParams);
+                lLinearLayoutParams.setMargins(10, 10, 10, 10);
+                lLinearLayoutApp.setLayoutParams(lLinearLayoutParams);
 
                 //Setting up the image view
-                ImageView limageViewAppIcon = new ImageView(iOSApps.this);
-                limageViewAppIcon.setLayoutParams(new ViewGroup.LayoutParams(
+                ImageView lImageViewAppIcon = new ImageView(iOSApps.this);
+                lImageViewAppIcon.setLayoutParams(new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
                 ));
-                Picasso.with(iOSApps.this).load(feed.getLargeImage()[0]).resize(150,150).into(limageViewAppIcon);
+                Picasso.with(iOSApps.this).load(feed.getLargeImage()[0]).resize(150,150).into(lImageViewAppIcon);
 
                 //Setting up the text view and its layout params
-                TextView ltextViewAppTitle = new TextView(iOSApps.this);
-                LinearLayout.LayoutParams ltextViewLayoutParams = new LinearLayout.LayoutParams(
+                TextView lTextViewAppTitle = new TextView(iOSApps.this);
+                LinearLayout.LayoutParams lTextViewLayoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
-                ltextViewLayoutParams.setMargins(35,0,0,0);
+                lTextViewLayoutParams.setMargins(35, 0, 0, 0);
 
-                ltextViewAppTitle.setLayoutParams(ltextViewLayoutParams);
-                ltextViewAppTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
-                ltextViewAppTitle.setTypeface(Typeface.DEFAULT_BOLD);
-                ltextViewAppTitle.setTextColor(Color.BLACK);
-                ltextViewAppTitle.setClickable(true);
-                ltextViewAppTitle.setText(feed.getTitle());
-                ltextViewAppTitle.setOnClickListener(new View.OnClickListener() {
+                lTextViewAppTitle.setLayoutParams(lTextViewLayoutParams);
+                lTextViewAppTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                lTextViewAppTitle.setTypeface(Typeface.DEFAULT_BOLD);
+                lTextViewAppTitle.setTextColor(Color.BLACK);
+                lTextViewAppTitle.setClickable(true);
+                lTextViewAppTitle.setText(feed.getTitle());
+                lTextViewAppTitle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startDetailedActivity(fselecteedMediaType,feed);
+                        startDetailedActivity(fSelectedMediaType, feed);
                     }
                 });
 
                 //Adding text view and image view into the master layout
-                llinearLayoutApp.addView(limageViewAppIcon);
-                llinearLayoutApp.addView(ltextViewAppTitle);
-                fMainLayout.addView(llinearLayoutApp);
+                lLinearLayoutApp.addView(lImageViewAppIcon);
+                lLinearLayoutApp.addView(lTextViewAppTitle);
+                fMainLayout.addView(lLinearLayoutApp);
             }
         }
         else{
@@ -133,10 +130,10 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
 
     }
 
-    public void startDetailedActivity(String amediaType,Feed afeed){
-        Intent ldetailedApp = new Intent(fDETAILED_MEDIA_ACTIVITY);
-        ldetailedApp.putExtra(fMEDIA_TYPE,amediaType);
-        ldetailedApp.putExtra(fMEDIA_FEEDS,afeed);
-        startActivity(ldetailedApp);
+    public void startDetailedActivity(String aMediaType, Feed aFeed){
+        Intent lDetailedApp = new Intent(fDETAILED_MEDIA_ACTIVITY);
+        lDetailedApp.putExtra(fMEDIA_TYPE, aMediaType);
+        lDetailedApp.putExtra(fMEDIA_FEEDS, aFeed);
+        startActivity(lDetailedApp);
     }
 }
