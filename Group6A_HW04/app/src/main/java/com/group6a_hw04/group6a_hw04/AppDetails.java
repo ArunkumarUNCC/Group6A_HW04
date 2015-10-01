@@ -69,7 +69,7 @@ public class AppDetails extends AppCompatActivity {
 
         Picasso.with(AppDetails.this).load(aAppFeed.getLargeImage()[1]).into(fThumbnail);
         
-        createArtist(aAppFeed,  aMediaType);
+//        createArtist(aAppFeed,  aMediaType);
 
     }
 

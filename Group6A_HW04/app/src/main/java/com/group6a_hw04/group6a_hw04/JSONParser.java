@@ -46,18 +46,18 @@ public class JSONParser {
 
                 //Parsing Category of the app
                 lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("category").getJSONObject(fATTRIBUTES);
-                lFeed.setPrice(lCommonObject.getString(fLABEL));
+                lFeed.setCategory(lCommonObject.getString(fLABEL));
 
                 //Parsing release Date of the app
                 lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("im:releaseDate").getJSONObject(fATTRIBUTES);
-                lFeed.setArtist(lCommonObject.getString(fLABEL));
+                lFeed.setReleaseDate(lCommonObject.getString(fLABEL));
 
                 //Parsing Summary of the app
                 if((aSelectedMediaType.equals("BOOKS")) || (aSelectedMediaType.equals("MAC_APPS")) ||
                         (aSelectedMediaType.equals("TV_SHOWS")) || (aSelectedMediaType.equals("MOVIES"))
                         || (aSelectedMediaType.equals("PODCASTS"))) {
                     lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("summary");
-                    lFeed.setArtist(lCommonObject.getString(fLABEL));
+                    lFeed.setSummary(lCommonObject.getString(fLABEL));
                 }
 
                 //Parsing Preview Link of the app
