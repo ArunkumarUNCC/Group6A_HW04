@@ -12,18 +12,14 @@ import java.util.ArrayList;
  * Created by Arunkumar's on 9/30/2015.
  */
 public class JSONParser {
-   static String fselectedMeadiaType;
+
 
     static final String fLABEL = "label";
     static final String fATTRIBUTES = "attributes";
     static final String fHREF = "href";
 
-    public JSONParser(String aselectedMediaType) {
-        this.fselectedMeadiaType = aselectedMediaType;
-    }
-
     public static class ParseAppFeeds{
-        static ArrayList<Feed> parseFeeds(String astringBuilder) throws JSONException {
+            static ArrayList<Feed> parseFeeds(String astringBuilder,String aselectedMediaType) throws JSONException {
             ArrayList<Feed> lfeedsArrayList = new ArrayList<Feed>();
 
             JSONObject root = new JSONObject(astringBuilder);
@@ -40,11 +36,11 @@ public class JSONParser {
                 lcommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("im:name");
                 lfeed.setTitle(lcommonObject.getString(fLABEL));
 
-                //Parsing Name of the app
+                //Parsing Image of the app
                 lcommonObject = jsonEntryArray.getJSONObject(i);
                 llinkArray = lcommonObject.getJSONArray("im:image");
-                lfeed.setLargeImage(new String[]{llinkArray.getJSONObject(0).getJSONObject(fATTRIBUTES).getString(fLABEL),
-                        llinkArray.getJSONObject(2).getJSONObject(fATTRIBUTES).getString(fLABEL)});
+                lfeed.setLargeImage(new String[]{llinkArray.getJSONObject(0).getString(fLABEL),
+                        llinkArray.getJSONObject(2).getString(fLABEL)});
 
                 //Parsing Artist of the app
                 lcommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("im:artist");
@@ -63,26 +59,27 @@ public class JSONParser {
                 lfeed.setArtist(lcommonObject.getString(fLABEL));
 
                 //Parsing Summary of the app
-                if((fselectedMeadiaType.equals("BOOKS")) || (fselectedMeadiaType.equals("MAC_APPS")) ||
-                        (fselectedMeadiaType.equals("TV_SHOWS")) || (fselectedMeadiaType.equals("MOVIES")) || (fselectedMeadiaType.equals("PODCASTS"))) {
+                if((aselectedMediaType.equals("BOOKS")) || (aselectedMediaType.equals("MAC_APPS")) ||
+                        (aselectedMediaType.equals("TV_SHOWS")) || (aselectedMediaType.equals("MOVIES"))
+                        || (aselectedMediaType.equals("PODCASTS"))) {
                     lcommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("summary");
                     lfeed.setArtist(lcommonObject.getString(fLABEL));
                 }
 
                 //Parsing Preview Link of the app
-                if((fselectedMeadiaType.equals("AUDIO_BOOKS")) || (fselectedMeadiaType.equals("MOVIES")) ||
-                        (fselectedMeadiaType.equals("TV_SHOWS")) || (fselectedMeadiaType.equals("MUSIC_VIDEOS"))) {
+                if((aselectedMediaType.equals("AUDIO_BOOKS")) || (aselectedMediaType.equals("MOVIES")) ||
+                        (aselectedMediaType.equals("TV_SHOWS")) || (aselectedMediaType.equals("MUSIC_VIDEO"))) {
                     lcommonObject = jsonEntryArray.getJSONObject(i);
-                    llinkArray = lcommonObject.getJSONArray("im:link");
+                    llinkArray = lcommonObject.getJSONArray("link");
 
                     lfeed.setLinkToPreview(llinkArray.getJSONObject(1).getJSONObject(fATTRIBUTES).getString(fHREF));
 
                     //Parsing Duration of the app
-                    lfeed.setDuration(llinkArray.getJSONObject(1).getJSONObject(fATTRIBUTES).getString(fLABEL));
+                    lfeed.setDuration(llinkArray.getJSONObject(1).getJSONObject("im:duration").getString(fLABEL));
                 }
                 else{
                     lcommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("link").getJSONObject(fATTRIBUTES);
-                    lfeed.setLinkToPreview(lcommonObject.getString(fLABEL));
+                    lfeed.setLinkToPreview(lcommonObject.getString(fHREF));
                 }
 
 

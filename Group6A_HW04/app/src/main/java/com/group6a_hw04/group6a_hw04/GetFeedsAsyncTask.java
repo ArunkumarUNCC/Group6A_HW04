@@ -3,6 +3,7 @@ package com.group6a_hw04.group6a_hw04;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 
@@ -61,9 +62,7 @@ public class GetFeedsAsyncTask extends AsyncTask<String,Void,ArrayList<Feed>> {
                     line = lbufferedReader.readLine();
                 }
 
-                JSONParser ltoParse = new JSONParser(fselectedMediaType);
-
-                return JSONParser.ParseAppFeeds.parseFeeds(String.valueOf(lstringBuilder));
+                return JSONParser.ParseAppFeeds.parseFeeds(String.valueOf(lstringBuilder),fselectedMediaType);
 
             }
         } catch (MalformedURLException e) {
@@ -81,7 +80,6 @@ public class GetFeedsAsyncTask extends AsyncTask<String,Void,ArrayList<Feed>> {
     @Override
     protected void onPostExecute(ArrayList<Feed> feeds) {
         super.onPostExecute(feeds);
-
         ffeedLoadProgress.dismiss();
         factivity.displayFeeds(feeds);
     }

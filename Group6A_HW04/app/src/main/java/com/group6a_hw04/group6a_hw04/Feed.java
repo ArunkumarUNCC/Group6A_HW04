@@ -1,11 +1,16 @@
 package com.group6a_hw04.group6a_hw04;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by Arunkumar's on 9/30/2015.
  */
-public class Feed {
+public class Feed implements Serializable{
     String title,artist,duration,category,releaseDate,summary,price,linkToPreview;
     String[] largeImage = new String[2];
+
     public String getTitle() {
         return title;
     }
