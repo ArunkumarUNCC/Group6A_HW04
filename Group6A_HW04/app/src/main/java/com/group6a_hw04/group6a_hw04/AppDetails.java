@@ -5,18 +5,14 @@ import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.style.TextAppearanceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
+import static android.R.style.TextAppearance_Medium;
 
 public class AppDetails extends AppCompatActivity {
 
@@ -77,7 +73,7 @@ public class AppDetails extends AppCompatActivity {
         Picasso.with(AppDetails.this).load(aAppFeed.getLargeImage()[1]).into(fThumbnail);
         
         createArtist(aAppFeed);
-        if(!aMediaType.equals("AUDIO_BOOKS") || !aMediaType.equals("IOS_APPS") || !aMediaType.equals("MOVIES")){
+        if(!aMediaType.equals("AUDIO_BOOKS") && !aMediaType.equals("IOS_APPS") && !aMediaType.equals("MOVIES")){
             createSummary(aAppFeed);
         }
         if(!aMediaType.equals("AUDIO_BOOKS")){
@@ -135,8 +131,14 @@ public class AppDetails extends AppCompatActivity {
 
     private void createTextView(String aPrefix, String aContent) {
         TextView lGenericTextView = new TextView(AppDetails.this);
-        lGenericTextView.setTextAppearance(this, android.R.style.TextAppearance_Large);
-//        lGenericTextView.setTextAppearance(this, R.style.layoutSpacing);
+        lGenericTextView.setTextAppearance(this, TextAppearance_Medium);
+
+        LinearLayout.LayoutParams lTextViewLayoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        lTextViewLayoutParams.setMargins(0, 0, 0, 60);
+        lGenericTextView.setLayoutParams(lTextViewLayoutParams);
         lGenericTextView.setText(aPrefix + aContent);
         fTextLayout.addView(lGenericTextView);
     }
