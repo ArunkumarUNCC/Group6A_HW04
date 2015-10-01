@@ -27,4 +27,5 @@
     <string name="price">Price: $</string>
     <string name="category">Category:</string>
     <string name="appLinkInSore">App Link in Store:</string>
+    <string name="title_activity_preview">Preview Activity</string>
 </resources>

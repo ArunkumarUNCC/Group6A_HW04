@@ -38,6 +38,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PreviewActivity"
+            android:label="@string/title_activity_preview" >
+        </activity>
     </application>
 
 </manifest>
