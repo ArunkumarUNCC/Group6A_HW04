@@ -12,6 +12,8 @@ public class JSONParser {
     static final String fLABEL = "label";
     static final String fATTRIBUTES = "attributes";
     static final String fHREF = "href";
+    static final String fAMOUNT = "amount";
+    static final String fGET = "Get";
 
     public static class ParseAppFeeds{
             static ArrayList<Feed> parseFeeds(String aStringBuilder, String aSelectedMediaType) throws JSONException {
@@ -42,7 +44,11 @@ public class JSONParser {
 
                 //Parsing Price of the app
                 lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("im:price");
-                lFeed.setPrice(lCommonObject.getString(fLABEL));
+                if(lCommonObject.getString(fLABEL).equals(fGET)){
+                    lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("im:price").getJSONObject(fATTRIBUTES);
+                    lFeed.setPrice(lCommonObject.getString(fAMOUNT));
+                }else
+                    lFeed.setPrice(lCommonObject.getString(fLABEL));
 
                 //Parsing Category of the app
                 lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("category").getJSONObject(fATTRIBUTES);
