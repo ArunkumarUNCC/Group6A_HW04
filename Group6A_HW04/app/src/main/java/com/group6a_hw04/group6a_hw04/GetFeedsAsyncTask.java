@@ -77,10 +77,10 @@ public class GetFeedsAsyncTask extends AsyncTask<String,Void,ArrayList<Feed>> {
     protected void onPostExecute(ArrayList<Feed> aFeeds) {
         super.onPostExecute(aFeeds);
         fFeedLoadProgress.dismiss();
-        fActivity.displayFeeds(aFeeds);
+        fActivity.checkPreferences(aFeeds);
     }
 
     public static interface IGetFeeds{
-        public void displayFeeds(ArrayList<Feed> feeds);
+        public void checkPreferences(ArrayList<Feed> feeds);
     }
 }
