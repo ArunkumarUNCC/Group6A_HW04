@@ -181,7 +181,7 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
                     @Override
                     public boolean onLongClick(View v) {
                         findViewById(ltemp).setVisibility(View.GONE);
-                        deleteSharedPreference(ltemp,feed.getTitle());
+                        deleteSharedPreference(ltemp,feed.getTitle(),fSelectedMediaType);
                         return true;
                     }
                 });
@@ -203,8 +203,8 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
         startActivity(lDetailedApp);
     }
 
-    private void deleteSharedPreference(int aindex,String amediaTitle){
-        final SharedPreferences lshareMedia = getSharedPreferences(fSelectedMediaType, MODE_PRIVATE);
+    private void deleteSharedPreference(int aindex,String amediaTitle,String aSelectedMediaType){
+        final SharedPreferences lshareMedia = getSharedPreferences(aSelectedMediaType, MODE_PRIVATE);
         String lcheckFeeds = lshareMedia.getString(fMEDIA_FEEDS,null);
 
         Gson lgson2 = new Gson();

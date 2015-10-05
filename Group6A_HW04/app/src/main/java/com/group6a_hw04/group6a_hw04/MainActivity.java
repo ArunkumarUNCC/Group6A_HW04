@@ -126,32 +126,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean checkSharedPreference(String amediaType){
-        fshareMedia = getSharedPreferences(amediaType, MODE_PRIVATE);
-//        fshareMedia.edit().clear().apply();
-        boolean lcheck = fshareMedia.contains(fMEDIA_TYPE);
+        SharedPreferences lshareMedia = getSharedPreferences(amediaType, MODE_PRIVATE);
+//        lshareMedia.edit().clear().apply();
+        boolean lcheck = lshareMedia.contains(fMEDIA_TYPE);
         if(lcheck) {
-            String lcheckMedia = fshareMedia.getString(fMEDIA_TYPE,null);
+            String lcheckMedia = lshareMedia.getString(fMEDIA_TYPE,null);
 //            Log.d("Check Preference",lcheckMedia);
             if(lcheckMedia!=null && lcheckMedia.equals(amediaType)){
                 return true;
             }
             else return false;
         } else {
-            putSharedPreference(amediaType);
+            putSharedPreference(lshareMedia,amediaType);
             return false;
         }
     }
 
-    public void putSharedPreference(final String amediaType){
-        fshareMedia = getSharedPreferences(amediaType, MODE_PRIVATE);
-        fshareMedia.edit().putString(fMEDIA_TYPE,amediaType).apply();
-
+    public void putSharedPreference(final SharedPreferences ashareMedia,final String amediaType){
+//        fshareMedia = getSharedPreferences(amediaType, MODE_PRIVATE);
+        ashareMedia.edit().putString(fMEDIA_TYPE,amediaType).apply();
+        Log.d("Putting into Cache",ashareMedia.getString(fMEDIA_TYPE,null));
         Timer ltimer = new Timer();
         ltimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                fshareMedia.edit().clear().apply();
+                Log.d("Clear Cache",amediaType);
+                ashareMedia.edit().clear().apply();
             }
-        },2*60*1000);
+        },60*1000);
     }
 }
