@@ -65,7 +65,7 @@ public class AppDetails extends AppCompatActivity {
     public void createScreen(Feed aAppFeed, String aMediaType){
         fAppTitle.setText(aAppFeed.getTitle());
 
-        if(aMediaType.equals("IOS_APPS") || aMediaType.equals("MOVIES") || aMediaType.equals("PODCASTS"))
+        if(aMediaType.equals("ITUNES_U") || aMediaType.equals("MOVIES") || aMediaType.equals("PODCASTS"))
             fReleaseDate.setText("");
         else
             fReleaseDate.setText("Release Date: " + aAppFeed.getReleaseDate());
@@ -73,13 +73,14 @@ public class AppDetails extends AppCompatActivity {
         Picasso.with(AppDetails.this).load(aAppFeed.getLargeImage()[1]).into(fThumbnail);
         
         createArtist(aAppFeed);
-        if(!aMediaType.equals("AUDIO_BOOKS") && !aMediaType.equals("IOS_APPS") && !aMediaType.equals("MOVIES")){
+        if(!aMediaType.equals("AUDIO_BOOKS") && !aMediaType.equals("IOS_APPS") && !aMediaType.equals("MOVIES")
+                && !aMediaType.equals("MUSIC_VIDEO")) {
             createSummary(aAppFeed);
         }
-        if(!aMediaType.equals("AUDIO_BOOKS")){
+        if(!aMediaType.equals("AUDIO_BOOKS")) {
             createPrice(aAppFeed);
         }
-        if(aMediaType.equals("AUDIO_BOOKS")){
+        if((aMediaType.equals("AUDIO_BOOKS"))) {
             createDuration(aAppFeed);
         }
         if(!aMediaType.equals("PODCASTS")){
@@ -118,7 +119,7 @@ public class AppDetails extends AppCompatActivity {
     }
 
     private void createPrice(Feed aAppFeed) {
-        createTextView("Price: $", aAppFeed.getPrice());
+        createTextView("Price: ", aAppFeed.getPrice());
     }
 
     private void createCategory(Feed aAppFeed) {

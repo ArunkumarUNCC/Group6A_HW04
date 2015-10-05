@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
         fMainLayout = findViewById(R.id.linearLayoutMain);
 
-        fshareMedia = getSharedPreferences(fMEDIA_PREFERENCE, MODE_PRIVATE);
-        fmediaEditor = fshareMedia.edit();
-        fmediaEditor.clear();
-        fmediaEditor.commit();
+//        fshareMedia = getSharedPreferences(fMEDIA_PREFERENCE, MODE_PRIVATE);
+//        fmediaEditor = fshareMedia.edit();
+//        fmediaEditor.clear();
+//        fmediaEditor.commit();
 
 
     }
@@ -126,10 +126,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean checkSharedPreference(String amediaType){
-
+        fshareMedia = getSharedPreferences(amediaType, MODE_PRIVATE);
+//        fshareMedia.edit().clear().apply();
         boolean lcheck = fshareMedia.contains(fMEDIA_TYPE);
         if(lcheck) {
             String lcheckMedia = fshareMedia.getString(fMEDIA_TYPE,null);
+//            Log.d("Check Preference",lcheckMedia);
             if(lcheckMedia!=null && lcheckMedia.equals(amediaType)){
                 return true;
             }
@@ -140,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void putSharedPreference(String amediaType){
+    public void putSharedPreference(final String amediaType){
+        fshareMedia = getSharedPreferences(amediaType, MODE_PRIVATE);
         fshareMedia.edit().putString(fMEDIA_TYPE,amediaType).apply();
 
         Timer ltimer = new Timer();

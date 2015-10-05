@@ -53,7 +53,7 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
         this.setTitle(fSelectedMediaType);
 
         if(lcheckPreference){
-            SharedPreferences lshareMedia = getSharedPreferences(fMEDIA_PREFERENCE, MODE_PRIVATE);
+            SharedPreferences lshareMedia = getSharedPreferences(fSelectedMediaType, MODE_PRIVATE);
             String lcheckFeeds = lshareMedia.getString(fMEDIA_FEEDS,null);
             Gson lgson1 = new Gson();
             Type type = new TypeToken<List<Feed>>(){}.getType();
@@ -96,7 +96,7 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
     @Override
     public void checkPreferences(ArrayList<Feed> aFeeds){
 
-        final SharedPreferences lshareMedia = getSharedPreferences(fMEDIA_PREFERENCE, MODE_PRIVATE);
+        final SharedPreferences lshareMedia = getSharedPreferences(fSelectedMediaType, MODE_PRIVATE);
 
         String lcheckMedia = lshareMedia.getString(fMEDIA_TYPE,null);
         Gson lgson = new Gson();
@@ -124,11 +124,12 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
     }
 
     public void displayFeeds(ArrayList<Feed> aFeeds) {
-
+        int i=0;
         if (aFeeds !=null) {
+
             for(final Feed feed: aFeeds) {
                 //Setting up master horizontal linear layout
-                LinearLayout lLinearLayoutApp = new LinearLayout(iOSApps.this);
+                final LinearLayout lLinearLayoutApp = new LinearLayout(iOSApps.this);
                 lLinearLayoutApp.setOrientation(LinearLayout.HORIZONTAL);
                 LinearLayout.LayoutParams lLinearLayoutParams = (new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -159,6 +160,8 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
                 lTextViewAppTitle.setTextColor(Color.BLACK);
                 lTextViewAppTitle.setClickable(true);
                 lTextViewAppTitle.setText(feed.getTitle());
+
+                //Code for onClick
                 lTextViewAppTitle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -169,7 +172,21 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
                 //Adding text view and image view into the master layout
                 lLinearLayoutApp.addView(lImageViewAppIcon);
                 lLinearLayoutApp.addView(lTextViewAppTitle);
+                lLinearLayoutApp.setId(i);
                 fMainLayout.addView(lLinearLayoutApp);
+
+                final int ltemp = i;
+                //Code for onLongClick
+                lTextViewAppTitle.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        findViewById(ltemp).setVisibility(View.GONE);
+                        deleteSharedPreference(ltemp,feed.getTitle());
+                        return true;
+                    }
+                });
+
+                i++;
             }
         }
         else{
@@ -184,5 +201,34 @@ public class iOSApps extends AppCompatActivity implements GetFeedsAsyncTask.IGet
         lDetailedApp.putExtra(fMEDIA_TYPE, aMediaType);
         lDetailedApp.putExtra(fMEDIA_FEEDS, aFeed);
         startActivity(lDetailedApp);
+    }
+
+    private void deleteSharedPreference(int aindex,String amediaTitle){
+        final SharedPreferences lshareMedia = getSharedPreferences(fSelectedMediaType, MODE_PRIVATE);
+        String lcheckFeeds = lshareMedia.getString(fMEDIA_FEEDS,null);
+
+        Gson lgson2 = new Gson();
+        Type ltype = new TypeToken<List<Feed>>(){}.getType();
+
+        if(lcheckFeeds!=null) {
+            ArrayList<Feed> lfeeds = lgson2.fromJson(lcheckFeeds, ltype);
+
+
+            //lfeeds.remove(aindex);
+            lfeeds = delteFromList(aindex,lfeeds,amediaTitle);
+
+            lcheckFeeds = lgson2.toJson(lfeeds, ltype);
+            lshareMedia.edit().putString(fMEDIA_FEEDS,lcheckFeeds).apply();
+        }
+    }
+
+    private ArrayList<Feed> delteFromList(int aindex,ArrayList<Feed> feed,String amediaTitle){
+        if(aindex>=feed.size() || !feed.get(aindex).getTitle().equals(amediaTitle)){
+            return delteFromList(--aindex,feed,amediaTitle);
+        }
+        else{
+            feed.remove(aindex);
+            return feed;
+        }
     }
 }

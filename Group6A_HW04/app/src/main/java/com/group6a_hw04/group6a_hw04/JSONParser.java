@@ -1,5 +1,7 @@
 package com.group6a_hw04.group6a_hw04;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,8 +47,9 @@ public class JSONParser {
                 //Parsing Price of the app
                 lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("im:price");
                 if(lCommonObject.getString(fLABEL).equals(fGET)){
-                    lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("im:price").getJSONObject(fATTRIBUTES);
-                    lFeed.setPrice(lCommonObject.getString(fAMOUNT));
+//                    lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("im:price").getJSONObject(fATTRIBUTES);
+//                    lFeed.setPrice("$"+lCommonObject.getString(fAMOUNT));
+                    lFeed.setPrice("FREE!!!");
                 }else
                     lFeed.setPrice(lCommonObject.getString(fLABEL));
 
@@ -60,24 +63,29 @@ public class JSONParser {
 
                 //Parsing Summary of the app
                 if((aSelectedMediaType.equals("BOOKS")) || (aSelectedMediaType.equals("MAC_APPS")) ||
-                        (aSelectedMediaType.equals("TV_SHOWS")) || (aSelectedMediaType.equals("MOVIES"))
+                        (aSelectedMediaType.equals("TV_SHOWS")) || (aSelectedMediaType.equals("ITUNES_U"))
                         || (aSelectedMediaType.equals("PODCASTS"))) {
-                    lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("summary");
-                    lFeed.setSummary(lCommonObject.getString(fLABEL));
+                    try {
+                        lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("summary");
+                        lFeed.setSummary(lCommonObject.getString(fLABEL));
+                    } catch (JSONException e) {
+                        lFeed.setSummary("No Summary");
+                    }
                 }
 
-                //Parsing Preview Link of the app
+                //Parsing Duration and Preview Link of the app
                 if((aSelectedMediaType.equals("AUDIO_BOOKS")) || (aSelectedMediaType.equals("MOVIES")) ||
                         (aSelectedMediaType.equals("TV_SHOWS")) || (aSelectedMediaType.equals("MUSIC_VIDEO"))) {
                     lCommonObject = jsonEntryArray.getJSONObject(i);
                     lLinkArray = lCommonObject.getJSONArray("link");
 
-                    lFeed.setLinkToPreview(lLinkArray.getJSONObject(1).getJSONObject(fATTRIBUTES).getString(fHREF));
+                    lFeed.setLinkToPreview(lLinkArray.getJSONObject(0).getJSONObject(fATTRIBUTES).getString(fHREF));
 
-                    //Parsing Duration of the app
+
+                    String lduration = lLinkArray.getJSONObject(1).getJSONObject("im:duration").getString(fLABEL);
                     lFeed.setDuration(lLinkArray.getJSONObject(1).getJSONObject("im:duration").getString(fLABEL));
                 }
-                else{
+                else {
                     lCommonObject = jsonEntryArray.getJSONObject(i).getJSONObject("link").getJSONObject(fATTRIBUTES);
                     lFeed.setLinkToPreview(lCommonObject.getString(fHREF));
                 }
